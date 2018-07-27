@@ -2,6 +2,7 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mousepad_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -43,5 +44,23 @@
             android:layout_height="match_parent"
             android:layout_weight="1" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/showKeyboard"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/ic_action_keyboard"
+        android:foreground="@drawable/ic_action_keyboard" />
+
+    <ImageView
+        android:id="@+id/backgroundLogo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/ic_kde_logo" />
 
 </RelativeLayout>

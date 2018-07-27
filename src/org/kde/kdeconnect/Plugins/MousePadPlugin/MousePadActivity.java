@@ -35,6 +35,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import org.kde.kdeconnect.BackgroundService;
 import org.kde.kdeconnect.Device;
@@ -62,7 +63,8 @@ public class MousePadActivity extends Activity implements GestureDetector.OnGest
     private GestureDetector mDetector;
     private MousePadGestureDetector mMousePadGestureDetector;
 
-    private Button leftMouseButton, rightMouseButton;
+    private Button leftMouseButton, rightMouseButton, showKeyboard;
+    private ImageView backgroundLogo;
 
     KeyListenerView keyListenerView;
 
@@ -95,6 +97,10 @@ public class MousePadActivity extends Activity implements GestureDetector.OnGest
 
         leftMouseButton = (Button) findViewById(R.id.leftMouseButton);
         rightMouseButton = (Button) findViewById(R.id.rightMouseButton);
+        showKeyboard = (Button) findViewById(R.id.showKeyboard);
+        backgroundLogo = (ImageView) findViewById(R.id.backgroundLogo);
+
+        backgroundLogo.setAlpha(0.1f);
 
         deviceId = getIntent().getStringExtra("deviceId");
 
@@ -172,10 +178,19 @@ public class MousePadActivity extends Activity implements GestureDetector.OnGest
             });
         }
 
-        leftMouseButton.setOnClickListener(view -> sendMiddleClick());
-
+        leftMouseButton.setOnClickListener(view -> sendLeftClick());
         rightMouseButton.setOnClickListener(view -> sendRightClick());
+        showKeyboard.setOnClickListener(view -> showKeyboard());
 
+
+    }
+    private void sendLeftClick(){
+        BackgroundService.RunCommand(this, service -> {
+            Device device = service.getDevice(deviceId);
+            MousePadPlugin mousePadPlugin = device.getPlugin(MousePadPlugin.class);
+            if (mousePadPlugin == null) return;
+            mousePadPlugin.sendSingleClick();
+        });
     }
 
 //    @Override
@@ -185,22 +200,22 @@ public class MousePadActivity extends Activity implements GestureDetector.OnGest
 //        return true;
 //    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_right_click:
-                sendRightClick();
-                return true;
-            case R.id.menu_middle_click:
-                sendMiddleClick();
-                return true;
-            case R.id.menu_show_keyboard:
-                showKeyboard();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.menu_right_click:
+//                sendRightClick();
+//                return true;
+//            case R.id.menu_middle_click:
+//                sendMiddleClick();
+//                return true;
+//            case R.id.menu_show_keyboard:
+//                showKeyboard();
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
