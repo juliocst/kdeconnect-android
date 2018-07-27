@@ -172,6 +172,10 @@ public class MousePadActivity extends Activity implements GestureDetector.OnGest
             });
         }
 
+        leftMouseButton.setOnClickListener(view -> sendMiddleClick());
+
+        rightMouseButton.setOnClickListener(view -> sendRightClick());
+
     }
 
 //    @Override
