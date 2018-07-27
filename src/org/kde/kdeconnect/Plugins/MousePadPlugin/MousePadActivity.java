@@ -20,27 +20,28 @@
 
 package org.kde.kdeconnect.Plugins.MousePadPlugin;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.GestureDetector;
 import android.view.HapticFeedbackConstants;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 
 import org.kde.kdeconnect.BackgroundService;
 import org.kde.kdeconnect.Device;
 import org.kde.kdeconnect.UserInterface.ThemeUtil;
 import org.kde.kdeconnect_tp.R;
 
-public class MousePadActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener, MousePadGestureDetector.OnGestureListener {
+public class MousePadActivity extends Activity implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener, MousePadGestureDetector.OnGestureListener {
     String deviceId;
 
     private final static float MinDistanceToSendScroll = 2.5f; // touch gesture scroll
@@ -60,6 +61,8 @@ public class MousePadActivity extends AppCompatActivity implements GestureDetect
 
     private GestureDetector mDetector;
     private MousePadGestureDetector mMousePadGestureDetector;
+
+    private Button leftMouseButton, rightMouseButton;
 
     KeyListenerView keyListenerView;
 
@@ -84,8 +87,14 @@ public class MousePadActivity extends AppCompatActivity implements GestureDetect
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ThemeUtil.setUserPreferredTheme(this);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_mousepad);
+
+        leftMouseButton = (Button) findViewById(R.id.leftMouseButton);
+        rightMouseButton = (Button) findViewById(R.id.rightMouseButton);
 
         deviceId = getIntent().getStringExtra("deviceId");
 
@@ -165,12 +174,12 @@ public class MousePadActivity extends AppCompatActivity implements GestureDetect
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_mousepad, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_mousepad, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

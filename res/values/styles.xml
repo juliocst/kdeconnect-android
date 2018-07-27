@@ -35,6 +35,7 @@
         <item name="itemBackground">@drawable/state_list_drawer_background</item>
         <item name="itemIconTint">@color/state_list_drawer_text</item>
         <item name="itemTextColor">@color/state_list_drawer_text</item>
+        <item name="windowActionBar">false</item>
     </style>
 
     <style name="DisableableButton" parent="ThemeOverlay.AppCompat">

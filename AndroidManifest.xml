@@ -37,7 +37,7 @@
         android:icon="@drawable/icon"
         android:label="KDE Connect"
         android:supportsRtl="true"
-        android:theme="@style/KdeConnectTheme">
+        android:theme="@style/KdeConnectTheme.Dark.NoActionBar">
 
         <service
             android:name="org.kde.kdeconnect.BackgroundService"
@@ -179,7 +179,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/remote_control"
             android:parentActivityName="org.kde.kdeconnect.UserInterface.MainActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:theme="@android:style/Theme.NoTitleBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.kde.kdeconnect.UserInterface.MainActivity" />
